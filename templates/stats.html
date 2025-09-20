@@ -1,0 +1,78 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h1 class="mb-4">Project Statistics</h1>
+
+<!-- Project Status Cards -->
+<div class="row mb-4">
+    <div class="col-md-4 mb-3">
+        <div class="card border-danger h-100">
+            <div class="card-body text-center">
+                <div class="text-danger mb-2">
+                    <i class="bi bi-x-circle-fill" style="font-size: 2rem;"></i>
+                </div>
+                <h3 class="card-title text-danger">{{ failed_projects_count }}</h3>
+                <p class="card-text">Projects failed to meet funding goal</p>
+                <small class="text-muted">Missed target by deadline</small>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-4 mb-3">
+        <div class="card border-success h-100">
+            <div class="card-body text-center">
+                <div class="text-success mb-2">
+                    <i class="bi bi-check-circle-fill" style="font-size: 2rem;"></i>
+                </div>
+                <h3 class="card-title text-success">{{ successful_projects_count }}</h3>
+                <p class="card-text">Projects successfully funded</p>
+                <small class="text-muted">Reached target before deadline</small>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-4 mb-3">
+        <div class="card border-primary h-100">
+            <div class="card-body text-center">
+                <div class="text-primary mb-2">
+                    <i class="bi bi-clock-fill" style="font-size: 2rem;"></i>
+                </div>
+                <h3 class="card-title text-primary">{{ active_projects_count }}</h3>
+                <p class="card-text">Projects still active</p>
+                <small class="text-muted">Awaiting more funds</small>
+            </div>
+        </div>
+    </div>
+</div>
+
+<h2 class="mb-4">Pledge Statistics</h2>
+<div class="row">
+    <div class="col-md-6 mb-4">
+        <div class="card text-center">
+            <div class="card-body">
+                <h2 class="text-success">{{ successful_pledges }}</h2>
+                <h5>Successful Pledges</h5>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-6 mb-4">
+        <div class="card text-center">
+            <div class="card-body">
+                <h2 class="text-danger">{{ rejected_pledges }}</h2>
+                <h5>Rejected Pledges</h5>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="card">
+    <div class="card-body">
+        <h5 class="card-title">Total Pledges: {{ successful_pledges + rejected_pledges }}</h5>
+        <div class="progress">
+            {% set success_percent = (successful_pledges / (successful_pledges + rejected_pledges) * 100)|round(1) if (successful_pledges + rejected_pledges) > 0 else 0 %}
+            <div class="progress-bar bg-success" style="width: {{ success_percent }}%">{{ success_percent }}% Success</div>
+            <div class="progress-bar bg-danger" style="width: {{ 100 - success_percent }}%">{{ 100 - success_percent }}% Rejected</div>
+        </div>
+    </div>
+</div>
+{% endblock %}

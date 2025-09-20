@@ -1,0 +1,24 @@
+id,project_id,name,min_amount,quota
+1,10000000,Tier 1 Reward,682,8
+2,10000000,Tier 2 Reward,1546,10
+3,10000000,Tier 3 Reward,1428,17
+4,10000001,Tier 1 Reward,274,20
+5,10000001,Tier 2 Reward,1194,8
+6,10000001,Tier 3 Reward,1404,13
+7,10000002,Tier 1 Reward,256,10
+8,10000002,Tier 2 Reward,1912,16
+9,10000002,Tier 3 Reward,1662,18
+10,10000003,Tier 1 Reward,642,0
+11,10000003,Tier 2 Reward,1306,4
+12,10000003,Tier 3 Reward,678,13
+13,10000004,Tier 1 Reward,490,8
+14,10000004,Tier 2 Reward,758,5
+15,10000004,Tier 3 Reward,966,14
+16,10000005,Tier 1 Reward,548,12
+17,10000005,Tier 2 Reward,566,12
+18,10000006,Tier 1 Reward,688,15
+19,10000006,Tier 2 Reward,1888,17
+20,10000006,Tier 3 Reward,1578,6
+21,10000007,Tier 1 Reward,798,12
+22,10000007,Tier 2 Reward,422,5
+23,10000007,Tier 3 Reward,2652,12

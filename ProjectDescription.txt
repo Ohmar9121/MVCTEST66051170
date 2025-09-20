@@ -1,0 +1,12 @@
+In this project, I build a working system under the concept of MVC
+Where...
+- Model: Defines the business logic, the things it can do
+- View: In this case will work as templates, used to display various data to users
+- Controller: Works as something like a middleman between the model and the view, registers actions done in the view, process it using the model's functions, then properly return it to the view by (in this case) using blueprints!
+
+Technologies Used:
+1. Virtual Environment (venv)
+2. Flash: its in the name, it literally just flashes messages, making feedback easier
+3. Flask : flexible Python web framework, provides the core tools for handling web requests, routing, etc.
+4. Jinja2: allows usage of python in an html, and more dynamically generating features
+5. Bootstrap: good and quick ui, prebuilt css and such

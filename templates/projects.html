@@ -1,0 +1,91 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h1 class="mb-4">Crowdfunding Projects</h1>
+
+<div class="card mb-4">
+    <div class="card-body">
+        <form method="GET" action="{{ url_for('index') }}">
+            <div class="row">
+                <div class="col-md-4 mb-2">
+                    <input type="text" class="form-control" name="search" placeholder="Search projects..." value="{{ search }}">
+                </div>
+                <div class="col-md-3 mb-2">
+                    <select class="form-select" name="category">
+                        <option value="">All Categories</option>
+                        {% for cat in categories %}
+                            <option value="{{ cat }}" {% if category == cat %}selected{% endif %}>{{ cat }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="col-md-3 mb-2">
+                    <select class="form-select" name="sort">
+                        <option value="deadline" {% if sort_by == 'deadline' %}selected{% endif %}>Ending Soon</option>
+                        <option value="newest" {% if sort_by == 'newest' %}selected{% endif %}>Newest</option>
+                        <option value="most_funded" {% if sort_by == 'most_funded' %}selected{% endif %}>Most Funded</option>
+                    </select>
+                </div>
+                <div class="col-md-2 mb-2">
+                    <button type="submit" class="btn btn-primary w-100">Apply</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+<div class="row">
+    {% for project in projects %}
+    <div class="col-md-6 mb-4">
+        <div class="card h-100">
+            <div class="card-body">
+                <div class="d-flex justify-content-between align-items-start">
+                    <h5 class="card-title">{{ project.name }}</h5>
+                    {% set current_amount = project.current|int %}
+                    {% set target_amount = project.target|int %}
+                    {% set deadline = project.deadline|to_datetime %}
+                    
+                    {% if current_amount >= target_amount %}
+                        <span class="badge bg-success">Funded</span>
+                    {% elif deadline < now %}
+                        <span class="badge bg-danger">Expired</span>
+                    {% else %}
+                        <span class="badge bg-primary">Active</span>
+                    {% endif %}
+                </div>
+                
+                <span class="badge bg-secondary mb-2">{{ project.category }}</span>
+                
+                <div class="mb-3">
+                    <div class="d-flex justify-content-between mb-1">
+                        <span>Raised: ${{ project.current }}</span>
+                        <span>Target: ${{ project.target }}</span>
+                    </div>
+                    {% set progress_percent = (project.current|int / project.target|int * 100)|round(1) %}
+                    {% if progress_percent > 100 %}
+                        {% set progress_percent = 100 %}
+                    {% endif %}
+                    <div class="progress">
+                        <div class="progress-bar 
+                            {% if current_amount >= target_amount %}bg-success
+                            {% elif deadline < now %}bg-danger
+                            {% else %}bg-primary{% endif %}" 
+                            style="width: {{ progress_percent }}%">
+                            {{ progress_percent }}%
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="d-flex justify-content-between align-items-center">
+                    <small class="text-muted">Ends: {{ project.deadline }}</small>
+                    <a href="{{ url_for('project_details', project_id=project.id) }}" class="btn btn-primary btn-sm">View</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% else %}
+    <div class="col-12">
+        <div class="alert alert-info">No projects found.</div>
+    </div>
+    {% endfor %}
+</div>
+{% endblock %}
